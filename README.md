@@ -76,15 +76,19 @@ You can unset a command line variable with:
 	
 The possibles options are:
 
-- RYTHM
+### RYTHM
  - 0 = no rythm (only dots) ; 1 = rythm with extra spaces ; 2 = rythm alternative without extra lines
-- GRAPHICAL=2  
+ 
+### GRAPHICAL
  - 0 = simple display ; 1 = tab ; 2 = tab simpler and clearer version
-- BOARD
+
+### BOARD
  - 1 = the lowest note column is not marked ; the lowest note column is marked ;
-- NOTES
+
+### NOTES
  - 1 = display notes ; 2 = display numbers
-- TUNING
+
+### TUNING
  - C or G
 
 
