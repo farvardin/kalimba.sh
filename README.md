@@ -1,6 +1,6 @@
 # kalimba.sh
 
-The Kalimba is a musical instrument in the lamellophone familly, it makes sounds from vibrating plates fixed on a wooden box.
+The Kalimba is a musical instrument in the lamellophone family, it makes sounds from vibrating plates fixed on a wooden box.
 
 ![](kalimba.jpg)
 
@@ -40,17 +40,17 @@ With kalimba.sh, you can convert and display [ABC](https://abcnotation.com/) or 
 
 
 
-You can find an explanation of how kalimba tabs work on this [website](https://www.kalimbamagic.com/info/how-to-play/how-to-read-and-write-kalimba-tablature)
+You can find an explanation of how kalimba tabs work on this [website](https://www.kalimbamagic.com/info/how-to-play/how-to-read-and-write-kalimba-tablature).
 
-The dots are a rough indication for the rythms and notes lengths
+The dots are a rough indication for the rythms and notes lengths.
 
 
 
 ## Usage
 
 ```
-		kalimba.sh file.abc 
-        kalimba.sh file.mid 
+kalimba.sh file.abc 
+kalimba.sh file.mid 
 ```
 
 
@@ -59,7 +59,9 @@ You'll need to have [midi2abc](https://sourceforge.net/projects/abcmidi/) to be 
 
 If you want to export the result into a text file, use a redirection:
 
-	``./kalimba.sh blacknag.abc > blacknag.txt``
+```
+./kalimba.sh blacknag.abc > blacknag.txt
+```
 
 
 ## Options
@@ -74,20 +76,16 @@ You can unset a command line variable with:
 	
 The possibles options are:
 
-	- RYTHM
-		0 = no rythm (only dots) ; 1 = rythm with extra spaces ; 2 = rythm alternative without extra lines
-
-	- GRAPHICAL=2  
-		0 = simple display ; 1 = tab ; 2 = tab simpler and clearer version
-
-	- BOARD
-		1 = the lowest note column is not marked ; the lowest note column is marked ;
-
-	- NOTES
-		1 = display notes ; 2 = display numbers
-	
-	- TUNING
-		C or G
+- RYTHM
+ - 0 = no rythm (only dots) ; 1 = rythm with extra spaces ; 2 = rythm alternative without extra lines
+- GRAPHICAL=2  
+ - 0 = simple display ; 1 = tab ; 2 = tab simpler and clearer version
+- BOARD
+ - 1 = the lowest note column is not marked ; the lowest note column is marked ;
+- NOTES
+ - 1 = display notes ; 2 = display numbers
+- TUNING
+ - C or G
 
 
 
@@ -98,6 +96,8 @@ Kalimba have limited note range and scale, notes outside this range or scale wil
 
 
 ## Licence
+
+BSD 2-Clause [License](LICENSE)
 
 
 
