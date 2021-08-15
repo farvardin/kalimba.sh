@@ -13,19 +13,19 @@
 #          You can unset a command line variable with: 
 #               unset NOTES
 
-if [ $RYTHM = ""] ; then
+if [ -z "$RYTHM" ] ; then
 	RYTHM=0  # 0 = no rythm (only dots) ; 1 = rythm with extra spaces ; 2 = rythm alternative without extra lines
 	fi
-if [ $GRAPICAL = ""] ; then
-	GRAPHICAL=2  # 0 = simple display ; 1 = tab ; 2 = tab simpler and clearer version
+if [ -z "$GRAPHICAL" ] ; then
+	GRAPHICAL=2  # 0 = simple display ; 1 = tab with █ ; 2 = tab simpler and clearer version
 	fi
-if [ $BOARD = ""] ; then
+if [ -z "$BOARD" ] ; then
 	BOARD=1  # 1 = the lowest note column is not marked ; the lowest note column is marked ;
 	fi
-if [ $NOTES = ""] ; then
+if [ -z "$NOTES" ] ; then
 	NOTES=2  # 1 (display notes) or 2 (display numbers)
 	fi
-if [ $TUNING = ""] ; then
+if [ -z "$TUNING" ] ; then
 	TUNING=C # C or G
 	fi
 
