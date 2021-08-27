@@ -47,6 +47,8 @@ The dots are a rough indication for the rythms and notes lengths.
 
 
 
+
+
 ## Usage
 
 ```
@@ -61,7 +63,7 @@ You'll need to have [midi2abc](https://sourceforge.net/projects/abcmidi/) to be 
 If you want to export the result into a text file, use a redirection:
 
 ```
-./kalimba.sh blacknag.abc > blacknag.txt
+./kalimba.sh samples/blacknag.abc > samples/blacknag.txt
 ```
 
 
@@ -100,6 +102,11 @@ Kalimba have limited note range and scale, notes outside this range or scale wil
 
 
 Kalimba.sh is convenient to quickly convert from a midi file. If you prefer a WYSIWYG editor, have a look at [Kalimba Tabs](https://github.com/oakleyaidan21/kalimba-tabs)
+
+
+If you need to display the result line by line to play along, you can use [slow](https://github.com/davidgranstrom/slow).
+
+``./kalimba.sh tune.mid |slow -l -d 500``
 
 
 
