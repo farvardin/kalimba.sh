@@ -67,7 +67,7 @@ d2 e2 f2 g2| a2 b2 c'2 d'2| e'2 |]
 ```
 
 
-![](sample/scale.png)
+![](samples/scale.png)
 
 
 ## Kalimba Notation
