@@ -31,6 +31,7 @@ if [ -z "$TUNING" ] ; then
 
 
 
+
 # Main script
 
 convert_abc() {
@@ -320,6 +321,34 @@ printf " \n\n"
 
 
 
+# kal script: for use with https://www.kalimbatabs.net/kalimba-tabs-tutorials/quick-guide-on-how-to-read-kalimba-tablature-pdf-for-beginners/
+
+convert_kal()
+{
+	printf " \n" | cat - $1 |\
+	perl -pe "s/\(/[/g" |\
+	perl -pe "s/\)/]/g" |\
+	perl -pe "s/2°°/d'/g" |\
+	perl -pe "s/1°°/c'/g" |\
+	perl -pe 's/7°/b/g' |\
+	perl -pe 's/6°/a/g' |\
+	perl -pe 's/5°/g/g' |\
+	perl -pe 's/4°/f/g' |\
+	perl -pe 's/3°/e/g' |\
+	perl -pe 's/2°/d/g' |\
+	perl -pe 's/1°/c/g' |\
+	perl -pe 's/7/B/g' |\
+	perl -pe 's/6/A/g' |\
+	perl -pe 's/5/G/g' |\
+	perl -pe 's/4/F/g' |\
+	perl -pe 's/3/E/g' |\
+	perl -pe 's/2/D/g' |\
+	perl -pe 's/1/C/g' > /tmp/tempkal.abc
+	convert_abc /tmp/tempkal.abc
+}
+
+
+
 #awk -F"."  '{ print $NF }'`
 
 
@@ -367,6 +396,8 @@ case "$1" in
 				exit ;;
 		*.mid) printf ""
 				convert_midi $1
+				exit ;;
+		*.kal) convert_kal $1
 				exit ;;
 		*) usage
 			exit ;;
