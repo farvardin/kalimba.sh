@@ -17,7 +17,7 @@ if [ -z "$RYTHM" ] ; then
 	RYTHM=0  # 0 = no rythm (only dots) ; 1 = rythm with extra spaces ; 2 = rythm alternative without extra lines
 	fi
 if [ -z "$GRAPHICAL" ] ; then
-	GRAPHICAL=0  # 0 = simple display ; 1 = tab with █ ; 2 = tab simpler and clearer version
+	GRAPHICAL=2  # 0 = simple display ; 1 = tab with █ ; 2 = tab simpler and clearer version
 	fi
 if [ -z "$BOARD" ] ; then
 	BOARD=1  # 1 = the lowest note column is not marked (modern); the lowest note column is marked ;
@@ -51,9 +51,9 @@ if [ $GRAPHICAL = 1 ] ; then
  graphical_check() { perl -pe 's///g'; } # do nothing 
 elif [ $GRAPHICAL = 2 ] ; then
  #graphical_check() { perl -pe 's/[\[\]]/|/g' | perl -pe 's/3°°\|/3| /gs' | perl -pe 's/°°\|/| \|/gs' | perl -pe 's/°\|/| /gs' | perl -pe 's/\|/ /gs'  | perl -pe 's/█/|/g' ; }
- graphical_check() { perl -pe 's/\|/ /gs'  | perl -pe 's/█/|/g' ; }
+ graphical_check() { perl -pe 's/[\[\]]/|/g' |  perl -pe 's/\|/ /gs'  | perl -pe 's/█/|/g' ; }
 else
- graphical_check() {  perl -pe 's/°/*/gm' | perl -pe  's/[ ]{1,}/ /g' | perl -pe 's/(.{1,50})/$1\n/gs' | perl -pe 's/^[ ]*//g' ;  } # replace 
+ graphical_check() {  perl -pe 's/°/*/gm' | perl -pe  's/[_|█\[\]\n]//gm' | perl -pe  's/[ ]{1,}/ /g' | perl -pe 's/(.{1,50})/$1\n/gs' | perl -pe 's/^[ ]*//g' ;  } # replace 
 fi
 
 
@@ -339,6 +339,16 @@ convert_kal()
 	perl -pe "s/\(/[/g" |\
 	perl -pe "s/\)/]/g" |\
 	perl -pe "s/º/°/g" |\
+	perl -pe "s/E°°/e'/g" |\
+	perl -pe "s/D°°/d'/g" |\
+	perl -pe "s/C°°/c'/g" |\
+	perl -pe 's/B°/b/g' |\
+	perl -pe 's/A°/a/g' |\
+	perl -pe 's/G°/g/g' |\
+	perl -pe 's/F°/f/g' |\
+	perl -pe 's/E°/e/g' |\
+	perl -pe 's/D°/d/g' |\
+	perl -pe 's/C°/c/g' |\
 	perl -pe "s/3°°/e'/g" |\
 	perl -pe "s/2°°/d'/g" |\
 	perl -pe "s/1°°/c'/g" |\
