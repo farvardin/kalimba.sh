@@ -17,10 +17,10 @@ if [ -z "$RYTHM" ] ; then
 	RYTHM=0  # 0 = no rythm (only dots) ; 1 = rythm with extra spaces ; 2 = rythm alternative without extra lines
 	fi
 if [ -z "$GRAPHICAL" ] ; then
-	GRAPHICAL=2  # 0 = simple display ; 1 = tab with █ ; 2 = tab simpler and clearer version
+	GRAPHICAL=0  # 0 = simple display ; 1 = tab with █ ; 2 = tab simpler and clearer version
 	fi
 if [ -z "$BOARD" ] ; then
-	BOARD=1  # 1 = the lowest note column is not marked ; the lowest note column is marked ;
+	BOARD=1  # 1 = the lowest note column is not marked (modern); the lowest note column is marked ;
 	fi
 if [ -z "$NOTES" ] ; then
 	NOTES=2  # 1 (display notes) or 2 (display numbers)
@@ -51,9 +51,9 @@ if [ $GRAPHICAL = 1 ] ; then
  graphical_check() { perl -pe 's///g'; } # do nothing 
 elif [ $GRAPHICAL = 2 ] ; then
  #graphical_check() { perl -pe 's/[\[\]]/|/g' | perl -pe 's/3°°\|/3| /gs' | perl -pe 's/°°\|/| \|/gs' | perl -pe 's/°\|/| /gs' | perl -pe 's/\|/ /gs'  | perl -pe 's/█/|/g' ; }
- graphical_check() { perl -pe 's/[\[\]]/|/g' |  perl -pe 's/\|/ /gs'  | perl -pe 's/█/|/g' ; }
+ graphical_check() { perl -pe 's/\|/ /gs'  | perl -pe 's/█/|/g' ; }
 else
- graphical_check() {  perl -pe 's/°/*/gm' | perl -pe  's/[_|█\[\]\n]//gm' | perl -pe  's/[ ]{1,}/ /g' | perl -pe 's/(.{1,50})/$1\n/gs' | perl -pe 's/^[ ]*//g' ;  } # replace 
+ graphical_check() {  perl -pe 's/°/*/gm' | perl -pe  's/[ ]{1,}/ /g' | perl -pe 's/(.{1,50})/$1\n/gs' | perl -pe 's/^[ ]*//g' ;  } # replace 
 fi
 
 
@@ -87,8 +87,11 @@ fi
 	
 if [ $BOARD = 1 ] ; then
  draw_board() {
+ # modern notation
 	perl -pe  's/x/|x|||_|_|||_|_|█|_|█|_|_|||_|_|||_|__ /g' |\
 	perl -pe  's/z/|x|||_|_|||_|_|█|_|█|_|_|||_|_|||_|__ /g' |\
+	perl -pe 's/\[/|v|v|_|_|||_|_|█|_|█|_|_|||_|_|v|_|__ /g' |\
+	perl -pe 's/\]/|^|^|_|_|||_|_|█|_|█|_|_|||_|_|^|_|__ /g' |\
 	perl -pe "s/c'/|_|█|_|_|█|_|_|█|_|█|_|_|█|_|_[1°°]__ /g" |\
 	perl -pe "s/d'/[2°°]_|_|█|_|_|█|_|█|_|_|█|_|_|█|_|__ /g" |\
 	perl -pe "s/e'/|_|█|_|_|█|_|_|█|_|█|_|_|█|_|_|█[3°°] /g" |\
@@ -108,8 +111,11 @@ if [ $BOARD = 1 ] ; then
 	perl -pe  's/b/|_[7°]|_|█|_|_|█|_|█|_|_|█|_|_|█|_|__ /g' ; }
 else
  draw_board() {
+ # Hugh Tracey notation
  	perl -pe  's/x/|x|_|||_|_|||_|_|||_|_|||_|_|||_|_|__ /g' |\
 	perl -pe  's/z/|x|_|||_|_|||_|_|||_|_|||_|_|||_|_|__ /g' |\
+	perl -pe 's/\[/|v|_|█|_|_|█|_|_|█|_|_|█|_|_|█|_|v|__ /g' |\
+	perl -pe 's/\]/|^|_|█|_|_|█|_|_|█|_|_|█|_|_|█|_|^|__ /g' |\
 	perl -pe "s/c'/|_|_|█|_|_|█|_|_|█|_|_|█|_|_|█[1°°]__ /g" |\
 	perl -pe "s/d'/[2°°]█|_|_|█|_|_|█|_|_|█|_|_|█|_|_|__ /g" |\
 	perl -pe "s/e'/|_|_|█|_|_|█|_|_|█|_|_|█|_|_|█|_[3°°] /g" |\
@@ -193,18 +199,20 @@ perl -pe "s/(\^[A-Za-z][']?)/ \1/g" |\
 perl -pe "s/(_[A-Za-z][']?)/ \1/g" |\
 perl -pe "s/([^_\^][A-Za-z]'\/?)/ \1/g" |\
 perl -pe "s/([^_\^][A-Za-z][']?[\/]?)/ \1/g"  |\
-
+# (do not) remove ]:
+ perl -pe 's/\]/\n]   /g' |\
+ perl -pe 's/\[/[   \n/g' |\
 #todo ;: remove this?:
 #perl -pe 's/(\d+?)([A-Z])/\1 \2/g' 
 perl -pe 's/   / /g' |\
+perl -pe 's/      / /g' |\
+perl -pe 's/     / /g' |\
 perl -pe 's/    / /g' |\
 perl -pe 's/  / /g' |\
 perl -pe 's/  / /g' |\
 # remove empty lines:
 sed '/^[[:space:]]*$/d' |\
 perl -pe 's/([A-Za-z])\//\1 /g' |\
-# remove ]:
-perl -pe 's/]//g' |\
 # separate accidentals too
 perl -pe 's/(\^[A-Za-z])/ \1/g' |\
 perl -pe 's/(_[A-Za-z])/ \1/g' |\
@@ -241,6 +249,8 @@ perl -pe "s/^(\^[A-Za-z][']?)[\h]*$/\1 100q/g"  |\
 perl -pe "s/^(_[A-Za-z][']?)[\h]*$/\1 100q/g"  |\
 perl -pe "s/^([A-Za-z][']?)[\h]*$/\1 100q/g"  |\
 perl -pe "s/^ ([A-Za-z][']?)[\h]*$/\1 100q/g"  |\
+perl -pe "s/^\[/\[ 100q/g"  |\
+perl -pe "s/^\]/\] 100q/g"  |\
 #shift 
 awk '{print $1," "$2"\n"}'  |\
 perl -pe 's/(\d+?)q\n/\1 /g' |\
@@ -325,9 +335,11 @@ printf " \n\n"
 
 convert_kal()
 {
-	printf " \n" | cat - $1 |\
+	printf "X:£ \nL:£/€ \nK:Cmaj\n" | cat - $1 |\
 	perl -pe "s/\(/[/g" |\
 	perl -pe "s/\)/]/g" |\
+	perl -pe "s/º/°/g" |\
+	perl -pe "s/3°°/e'/g" |\
 	perl -pe "s/2°°/d'/g" |\
 	perl -pe "s/1°°/c'/g" |\
 	perl -pe 's/7°/b/g' |\
@@ -343,7 +355,9 @@ convert_kal()
 	perl -pe 's/4/F/g' |\
 	perl -pe 's/3/E/g' |\
 	perl -pe 's/2/D/g' |\
-	perl -pe 's/1/C/g' > /tmp/tempkal.abc
+	perl -pe 's/1/C/g' |\
+	perl -pe 's/£/1/g' |\
+	perl -pe 's/€/4/g' > /tmp/tempkal.abc
 	convert_abc /tmp/tempkal.abc
 }
 
@@ -384,7 +398,8 @@ usage() {
 	banner
 	printf "Please use an abc or midi file as input.\n
           Usage: kalimba.sh file.abc 
-                 kalimba.sh file.mid \n\n"
+                 kalimba.sh file.mid 
+                 kalimba.sh file.kal \n\n"
 }
 
 
