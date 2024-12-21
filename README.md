@@ -154,6 +154,8 @@ The possibles options are:
 
 Kalimba have limited note range and scale, notes outside this range or scale will be ignored. 
 
+Chords are not displayed on the same line, they will be written on different lines, surrounded by vv and ^^ 
+
 
 Kalimba.sh is convenient to quickly convert from a midi file. If you prefer a WYSIWYG editor, have a look at [Kalimba Tabs](https://github.com/oakleyaidan21/kalimba-tabs)
 
