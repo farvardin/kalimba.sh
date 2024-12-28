@@ -5,7 +5,7 @@ The Kalimba is a musical instrument in the lamellophone family, it makes sounds 
 ![](kalimba.jpg)
 
 
-With kalimba.sh, you can convert and display [ABC](https://abcnotation.com/) or MIDI files to kalimba tab in ascii, and easily copy them to a website and for any use. Some "traditional" kalimba notations with numbers, like those on kalimbatabs.net are also supported.
+With kalimba.sh, you can convert and display [ABC](https://abcnotation.com/) or MIDI files to kalimba tab in ascii, and easily copy them to a website and for any use. Some "traditional" kalimba notations with numbers, like those on kalimbatabs.net are also supported. 
 
 
 
@@ -40,7 +40,7 @@ With kalimba.sh, you can convert and display [ABC](https://abcnotation.com/) or 
 ```
 
 
-
+You will be able to read the tabs from top to bottom, using numbers or letters placed at the right location like on the tines. 
 The dots are a rough indication for the rythms and notes lengths.
 
 
